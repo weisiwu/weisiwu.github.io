@@ -2466,7 +2466,7 @@ body,
 }
 .thread-item {
   display: inline-block;
-  margin: 0 18px;
+  margin: 0 5px;
   color: #999;
   -webkit-transition: color 0.3s ease;
   -o-transition: color 0.3s ease;

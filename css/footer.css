@@ -8,7 +8,14 @@
 }
 .footer a {
   color: #999;
-  text-decoration: underline;
+  text-decoration: none;
+  color: #000;
+}
+.footer p {
+  height: 22px;
+}
+.footer.post-layout {
+  margin-left: 80px;
 }
 @media screen and (max-width: 960px) {
   .footer {

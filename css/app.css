@@ -15,6 +15,9 @@ body,
 .header .aside {
   float: left;
 }
+.header.post-layout {
+  width: 80px;
+}
 .content {
   margin-left: 380px;
   padding: 15px 30px;
@@ -24,6 +27,9 @@ body,
   -webkit-animation: fade-in-down 0.6s 0.6s both;
   -moz-animation: fade-in-down 0.6s 0.6s both;
   animation: fade-in-down 0.6s 0.6s both;
+}
+.content.post-layout {
+  margin-left: 80px;
 }
 .clearfix:after {
   content: "\200B";

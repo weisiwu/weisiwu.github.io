@@ -146,10 +146,6 @@ body {
   -webkit-text-size-adjust: none;
 }
 @media screen and (min-width: 960px) {
-  ::selection {
-    color: #fff;
-    background-color: #7cc04b;
-  }
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
