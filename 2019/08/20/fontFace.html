@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>fontFace | 卫某人的草原</title>
+    <meta name="author" content="weisiwu">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="font-facehttps://www.w3school.com.cn/css3/css3_font.aspfont-face 支持的比较广泛https://www.zhangxinxu.com/wordpress/2017/03/css3-font-face-src-local/font-face 可以在兼容性比较好的浏览器上实现特殊的小图标，前端使用 \ucode 的方式去写。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    <link rel="alternate" href="/atom.xml" title="卫某人的草原" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <main class="app">
+        
+<header class="header clearfix post-layout">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">卫某人的草原</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/frontend">
+                <span class="nav-text">前端</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/linux">
+                <span class="nav-text">os</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/software">
+                <span class="nav-text">软件</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    
+</header>
+
+        <div id="content" class="content post-layout"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            fontFace
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <p class="article-date article-info-item">
+    <i></i> 发表于: 
+    <time datetime="2019-08-20T09:23:26.000Z" itemprop="datePublished">2019-08-20</time>
+</p>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/frontend/">frontend</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="font-face"><a href="#font-face" class="headerlink" title="font-face"></a>font-face</h1><p><a href="https://www.w3school.com.cn/css3/css3_font.asp" target="_blank" rel="noopener">https://www.w3school.com.cn/css3/css3_font.asp</a><br>font-face 支持的比较广泛</p>
+<p><a href="https://www.zhangxinxu.com/wordpress/2017/03/css3-font-face-src-local/" target="_blank" rel="noopener">https://www.zhangxinxu.com/wordpress/2017/03/css3-font-face-src-local/</a></p>
+<p>font-face 可以在兼容性比较好的浏览器上实现特殊的小图标，前端使用 \ucode 的方式去写。</p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "c3af3992520bacebd1c9",
+        clientSecret: "68a9cac186eb0d7239f42203e5727428ef047a7e",
+        repo: "weisiwu.github.io",
+        owner: "weisiwu",
+        admin: ["weisiwu"],
+        id: "2019/08/20/fontFace.html",
+        distractionFreeMode: true,
+        title: "fontFace",
+        body: "https://weisiwu.github.io/2019/08/20/fontFace.html",
+        labels: ["frontend"]
+    }).render('comments');
+    </script>
+</div>
+
+</div>
+        
+<footer class="footer post-layout">
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>；Copyright © <a href="https://weisiwu.github.io/" target="_blank">卫思伍</a></p>
+</footer>
+
+    </main>
+
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+            
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+        </script>
+    
+
+</body>
+</html>

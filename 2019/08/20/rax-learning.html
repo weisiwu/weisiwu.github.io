@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>rax-learning | 卫某人的草原</title>
+    <meta name="author" content="weisiwu">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="rax 学习rax 是一种 [DSL(domain special language)])(https://www.cnblogs.com/feng9exe/p/10901595.html)rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。rax 里面设置了一些自定义的事件  onAppearonPress  rax 支持 facebook 的 css-layoutrax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一rax 因为是...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    <link rel="alternate" href="/atom.xml" title="卫某人的草原" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <main class="app">
+        
+<header class="header clearfix post-layout">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">卫某人的草原</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/frontend">
+                <span class="nav-text">前端</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/linux">
+                <span class="nav-text">os</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/software">
+                <span class="nav-text">软件</span>
+            </a>
+        
+            <a class="nav-item" href="/tags/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    
+</header>
+
+        <div id="content" class="content post-layout"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            rax-learning
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <p class="article-date article-info-item">
+    <i></i> 发表于: 
+    <time datetime="2019-08-20T07:53:59.000Z" itemprop="datePublished">2019-08-20</time>
+</p>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/frontend/">frontend</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="rax-学习"><a href="#rax-学习" class="headerlink" title="rax 学习"></a>rax 学习</h1><p>rax 是一种 [DSL(domain special language)])(<a href="https://www.cnblogs.com/feng9exe/p/10901595.html" target="_blank" rel="noopener">https://www.cnblogs.com/feng9exe/p/10901595.html</a>)<br>rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。</p>
+<p>rax 里面设置了一些自定义的事件  </p>
+<ol>
+<li>onAppear</li>
+<li>onPress  </li>
+</ol>
+<p>rax 支持 facebook 的 <a href="https://github.com/facebook/css-layout#supported-attributes" target="_blank" rel="noopener">css-layout</a></p>
+<p>rax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一</p>
+<p>rax 因为是一个跨平台的框架，所以不是所有的css特性都支持。比如 rax 对于伪类的支持就比较有限。</p>
+<p>rax 是跨平台的，所以在一些不同的场景下，会存在不一致的问题。比如在 weex 下对于样式的支持(似乎是不再支持使用变量生成css，<br>而支持通过 className prop 去指定，猜测可能和其渲染机制相关)。</p>
+<p>rax 内部自己实现了 fetch api</p>
+<p>通过 rax-cli 指定容器创建出来的 app 是通过 app.json 来进行配置的。<br>在指定的组件中，需要引入 createElement(rax)才能正确的进行编译。</p>
+<p>rax 使用了 react 中很多的概念，但是其毕竟不是 react，所以当希望在其中直接使用 react 的时候，会报错。</p>
+<p>rax 转译成的html中，可以看到元素上面都是统一使用 flex 布局的。</p>
+<p>rax 中实现了 w3c 中标准的 iconfont，可以通过配置来实现对于一个码点的样式。</p>
+<p>rax 中也存在 setState 这么一个概念，但是这个函数一直都为同步的</p>
+<p>rax 中组件可以分为:<br>    1. 基础组件<br>    2. 布局组件<br>    3. 表单组件<br>    4. 提示反馈组件<br>    5. 数据展示组件<br>    6. 业务组件<br>    7. 创新体验组件</p>
+<p>rax css style 支持列表<br>    <a href="https://rax.js.org/rax/guide/style-support" target="_blank" rel="noopener">https://rax.js.org/rax/guide/style-support</a></p>
+<p>rax 的 className 只在 web 端生效，其他容器下是无法工作的。如果需要在特殊的容器下增强表现能力，需要对容器平台进行判断。</p>
+<p>感悟:<br>    这是一个框架，基于 react 修改出来的框架，学习和使用的难度应该都不是很高，问题在于，为什么要学习和使用这个东西。<br>    在学习和使用的过程中，我可以更加深入的想到一些什么？从中总结出来一些什么东西。<br>    1. 有哪些被被以组件的形式抽出来了？<br>    2. 他们是怎么被抽出来的？<br>    3. 抽出来时，为了让他们具有跨容器一致性，他们被赋予了那些基础属性和方法？</p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "c3af3992520bacebd1c9",
+        clientSecret: "68a9cac186eb0d7239f42203e5727428ef047a7e",
+        repo: "weisiwu.github.io",
+        owner: "weisiwu",
+        admin: ["weisiwu"],
+        id: "2019/08/20/rax-learning.html",
+        distractionFreeMode: true,
+        title: "rax-learning",
+        body: "https://weisiwu.github.io/2019/08/20/rax-learning.html",
+        labels: ["frontend"]
+    }).render('comments');
+    </script>
+</div>
+
+</div>
+        
+<footer class="footer post-layout">
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>；Copyright © <a href="https://weisiwu.github.io/" target="_blank">卫思伍</a></p>
+</footer>
+
+    </main>
+
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+            
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+        </script>
+    
+
+</body>
+</html>
