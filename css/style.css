@@ -2641,6 +2641,7 @@ body,
 }
 .article-header {
   font-size: 26px;
+  margin-bottom: 20px;
 }
 .article-header h1 a {
   color: #333;

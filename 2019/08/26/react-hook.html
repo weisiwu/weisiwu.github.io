@@ -7,11 +7,11 @@
 
     
 
-    <title>rax 学习 | 卫某人的草原</title>
+    <title>react-hook 学习 | 卫某人的草原</title>
     <meta name="author" content="weisiwu">
     <meta name="version" content="1.0.0">
     <meta name="keywords" content>
-    <meta name="description" content="rax 是一种 DSL(domain special language)rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。rax 里面设置了一些自定义的事件  onAppearonPress  rax 支持 facebook 的 css-layoutrax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一rax 因为是一个跨平台的框架，所以不是所有的css特性都支持。比如 rax 对于伪类的支持就比较有限。rax 是跨平台的，所以在...">
+    <meta name="description" content="hook 基础知识hooks 本质是一些特殊的函数，为你的函数组件注入特殊功能。它们的目的是不在使用class，而统一是哟 function 组件。一个常识是，在大中型项目中，react组件难以往往是难以直接复用的，其原因之一就是class组件具有状态(state)。react 官方之前推荐两种方式来做组件复用: 高阶组件（Higher-Order Components） &amp;amp;&amp;amp; 渲染属性（Render Props）同时react 的class 中存在一些生命周期钩子函数，...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 
@@ -69,13 +69,13 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            rax 学习
+            react-hook 学习
         </h1>
         
         <div class="article-meta clearfix">
             <p class="article-date article-info-item">
     <i></i> 发表于: 
-    <time datetime="2019-08-20T07:53:59.000Z" itemprop="datePublished">2019-08-20</time>
+    <time datetime="2019-08-26T06:39:10.000Z" itemprop="datePublished">2019-08-26</time>
 </p>
 
             
@@ -90,26 +90,23 @@
     
     <section class="article-body markdown-body">
         
-        <p>rax 是一种 <a href="https://www.cnblogs.com/feng9exe/p/10901595.html" target="_blank" rel="noopener">DSL(domain special language)</a><br>rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。</p>
-<p>rax 里面设置了一些自定义的事件  </p>
-<ol>
-<li>onAppear</li>
-<li>onPress  </li>
+        <h2 id="hook-基础知识"><a href="#hook-基础知识" class="headerlink" title="hook 基础知识"></a>hook 基础知识</h2><p>hooks 本质是一些特殊的函数，为你的函数组件注入特殊功能。它们的目的是不在使用class，而统一是哟 function 组件。<br>一个常识是，在大中型项目中，react组件难以往往是难以直接复用的，其原因之一就是class组件具有状态(state)。</p>
+<p>react 官方之前推荐两种方式来做组件复用: <a href="https://reactjs.org/docs/higher-order-components.html" target="_blank" rel="noopener">高阶组件（Higher-Order Components）</a> &amp;&amp; <a href="https://reactjs.org/docs/render-props.html" target="_blank" rel="noopener">渲染属性（Render Props）</a><br>同时react 的class 中存在一些生命周期钩子函数，这些钩子函数的存在也不利于组件的复用。<br>react 的class中还有一个this问题。例如: 存在多个具有共同部分的表格组件，但是它们之间也存在一些不同的地方需要在实例化的时候制定。<br>将其共同部分抽出为一个基础表格组件，特殊部分使用HOC的形式分别重写。但是因为基础表格组件自身也是通过引用三方的表格组件加上业务定制产生的。<br>所以这时，你会发现存在这样的一个调用连: 三方表格组件 -&gt; 基础表格组件 -&gt; 特殊实例化组件。这里的this绑定就会变得混乱不堪。  </p>
+<p>有状态组件通常会把一些带有副作用的操作放到的生命周期中， 比如发起 ajax 来请求数据<br>useEffect 类似于 componentDidMount 和 componentDidUpdate<br>直观的来看，react-hook 似乎是将 class 中原有的一些生命周期和功能抽出来，方便函数组件以乐高积木的形式来集成这些功能。  </p>
+<p>相关代码测试在 <a href="https://github.com/weisiwu/webpack-pack-test/tree/react-hook" target="_blank" rel="noopener">react-hook</a></p>
+<h2 id="todo-liss"><a href="#todo-liss" class="headerlink" title="todo liss"></a>todo liss</h2><ol>
+<li>列出 hooks 新添的函数列表和简要说明、官方文档地址。</li>
 </ol>
-<p>rax 支持 facebook 的 <a href="https://github.com/facebook/css-layout#supported-attributes" target="_blank" rel="noopener">css-layout</a></p>
-<p>rax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一</p>
-<p>rax 因为是一个跨平台的框架，所以不是所有的css特性都支持。比如 rax 对于伪类的支持就比较有限。</p>
-<p>rax 是跨平台的，所以在一些不同的场景下，会存在不一致的问题。比如在 weex 下对于样式的支持(似乎是不再支持使用变量生成css，<br>而支持通过 className prop 去指定，猜测可能和其渲染机制相关)。</p>
-<p>rax 内部自己实现了 fetch api</p>
-<p>通过 rax-cli 指定容器创建出来的 app 是通过 app.json 来进行配置的。<br>在指定的组件中，需要引入 createElement(rax)才能正确的进行编译。</p>
-<p>rax 使用了 react 中很多的概念，但是其毕竟不是 react，所以当希望在其中直接使用 react 的时候，会报错。</p>
-<p>rax 转译成的html中，可以看到元素上面都是统一使用 flex 布局的。</p>
-<p>rax 中实现了 w3c 中标准的 iconfont，可以通过配置来实现对于一个码点的样式。</p>
-<p>rax 中也存在 setState 这么一个概念，但是这个函数一直都为同步的</p>
-<p>rax 中组件可以分为:<br>    1. 基础组件<br>    2. 布局组件<br>    3. 表单组件<br>    4. 提示反馈组件<br>    5. 数据展示组件<br>    6. 业务组件<br>    7. 创新体验组件</p>
-<p>rax css style 支持列表<br>    <a href="https://rax.js.org/rax/guide/style-support" target="_blank" rel="noopener">https://rax.js.org/rax/guide/style-support</a></p>
-<p>rax 的 className 只在 web 端生效，其他容器下是无法工作的。如果需要在特殊的容器下增强表现能力，需要对容器平台进行判断。</p>
-<p>感悟:<br>    这是一个框架，基于 react 修改出来的框架，学习和使用的难度应该都不是很高，问题在于，为什么要学习和使用这个东西。<br>    在学习和使用的过程中，我可以更加深入的想到一些什么？从中总结出来一些什么东西。<br>    1. 有哪些被被以组件的形式抽出来了？<br>    2. 他们是怎么被抽出来的？<br>    3. 抽出来时，为了让他们具有跨容器一致性，他们被赋予了那些基础属性和方法？</p>
+<h2 id="hook-注意事项"><a href="#hook-注意事项" class="headerlink" title="hook 注意事项"></a>hook 注意事项</h2><ol>
+<li>react 规定 hook 需要写在函数的最外层，不能写在 if/else 分支内部。[此点存疑，测试的时候没有发现这个问题]  </li>
+</ol>
+<h2 id="hook-的内部实现机制"><a href="#hook-的内部实现机制" class="headerlink" title="hook 的内部实现机制"></a>hook 的内部实现机制</h2><p>– 暂时不知道</p>
+<p>参考文章:</p>
+<ol>
+<li><a href="https://segmentfault.com/a/1190000016950339" target="_blank" rel="noopener">30分钟精通React今年最劲爆的新特性——React Hooks</a></li>
+<li><a href="http://react.html.cn/docs/hooks-state.html" target="_blank" rel="noopener">使用 State(状态) Hook</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/50597236" target="_blank" rel="noopener">一篇看懂 React Hooks</a></li>
+</ol>
 
         
     </section>
@@ -127,10 +124,10 @@
         repo: "weisiwu.github.io",
         owner: "weisiwu",
         admin: ["weisiwu"],
-        id: "2019/08/20/rax-learning.html",
+        id: "2019/08/26/react-hook.html",
         distractionFreeMode: true,
-        title: "rax 学习",
-        body: "https://weisiwu.github.io/2019/08/20/rax-learning.html",
+        title: "react-hook 学习",
+        body: "https://weisiwu.github.io/2019/08/26/react-hook.html",
         labels: ["frontend"]
     }).render('comments');
     </script>
