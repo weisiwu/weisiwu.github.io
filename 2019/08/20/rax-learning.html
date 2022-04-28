@@ -1,102 +1,45 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
+<!DOCTYPE html><html lang="CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="rax 是一种 DSL(domain special language)rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。 rax 里面设置了一些自定义的事件    onAppear onPress  rax 支持 facebook 的 css-layout rax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一 rax 因为是一个跨平台的框架，所以不是所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rax 学习">
+<meta property="og:url" content="https://weisiwu.github.io/2019/08/20/rax-learning.html">
+<meta property="og:site_name" content="卫某人的草原">
+<meta property="og:description" content="rax 是一种 DSL(domain special language)rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。 rax 里面设置了一些自定义的事件    onAppear onPress  rax 支持 facebook 的 css-layout rax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一 rax 因为是一个跨平台的框架，所以不是所">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-08-20T07:53:59.000Z">
+<meta property="article:modified_time" content="2022-04-27T02:31:59.359Z">
+<meta property="article:author" content="weisiwu">
+<meta property="article:tag" content="frontend">
+<meta name="twitter:card" content="summary"><title>rax 学习 | 卫某人的草原</title><link ref="canonical" href="https://weisiwu.github.io/2019/08/20/rax-learning.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-    
-
-    
-
-    <title>rax 学习 | 卫某人的草原</title>
-    <meta name="author" content="weisiwu">
-    <meta name="version" content="1.0.0">
-    <meta name="keywords" content>
-    <meta name="description" content="rax 是一种 DSL(domain special language)rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。rax 里面设置了一些自定义的事件  onAppearonPress  rax 支持 facebook 的 css-layoutrax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一rax 因为是一个跨平台的框架，所以不是所有的css特性都支持。比如 rax 对于伪类的支持就比较有限。rax 是跨平台的，所以在...">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-
-    
-    <link rel="alternate" href="/atom.xml" title="卫某人的草原" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/images/favicon.ico">
-    
-
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
-    <main class="app">
-        
-<header class="header clearfix post-layout">
-    <div id="nav" class="nav">
-    <div class="nav-mobile">
-        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">卫某人的草原</h1>
-        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
-    </div>
-
-    <nav id="nav-inner" class="nav-inner">
-        
-            <a class="nav-item" href="/">
-                <span class="nav-text">首页</span>
-            </a>
-        
-            <a class="nav-item" href="/tags/frontend">
-                <span class="nav-text">前端</span>
-            </a>
-        
-            <a class="nav-item" href="/tags/linux">
-                <span class="nav-text">os</span>
-            </a>
-        
-            <a class="nav-item" href="/tags/software">
-                <span class="nav-text">软件</span>
-            </a>
-        
-            <a class="nav-item" href="/tags/about">
-                <span class="nav-text">关于</span>
-            </a>
-        
-    </nav>
-</div>
-
-    
-</header>
-
-        <div id="content" class="content post-layout"><article class="article" itemscope itemprop="blogPost">
-    
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            rax 学习
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <p class="article-date article-info-item">
-    <i></i> 发表于: 
-    <time datetime="2019-08-20T07:53:59.000Z" itemprop="datePublished">2019-08-20</time>
-</p>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/frontend/">frontend</a>
-</div>
-
-
-        </div>
-    </header>
-    
-    <section class="article-body markdown-body">
-        
-        <p>rax 是一种 <a href="https://www.cnblogs.com/feng9exe/p/10901595.html" target="_blank" rel="noopener">DSL(domain special language)</a><br>rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.1.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">卫某人的草原</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">rax 学习</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2019-08-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-04-27</span></span></div></header><div class="post-body"><p>rax 是一种 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/feng9exe/p/10901595.html" >DSL(domain special language)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br>rax 对自己的定义是 跨容器渲染引擎，所以其实现的能力也会存在容器差异。</p>
 <p>rax 里面设置了一些自定义的事件  </p>
 <ol>
 <li>onAppear</li>
-<li>onPress  </li>
+<li>onPress</li>
 </ol>
-<p>rax 支持 facebook 的 <a href="https://github.com/facebook/css-layout#supported-attributes" target="_blank" rel="noopener">css-layout</a></p>
+<p>rax 支持 facebook 的 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/facebook/css-layout#supported-attributes" >css-layout</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>rax 里面的单位似乎是相对单位，1单位相当于屏幕宽度的 750 分之一</p>
 <p>rax 因为是一个跨平台的框架，所以不是所有的css特性都支持。比如 rax 对于伪类的支持就比较有限。</p>
 <p>rax 是跨平台的，所以在一些不同的场景下，会存在不一致的问题。比如在 weex 下对于样式的支持(似乎是不再支持使用变量生成css，<br>而支持通过 className prop 去指定，猜测可能和其渲染机制相关)。</p>
@@ -107,90 +50,7 @@
 <p>rax 中实现了 w3c 中标准的 iconfont，可以通过配置来实现对于一个码点的样式。</p>
 <p>rax 中也存在 setState 这么一个概念，但是这个函数一直都为同步的</p>
 <p>rax 中组件可以分为:<br>    1. 基础组件<br>    2. 布局组件<br>    3. 表单组件<br>    4. 提示反馈组件<br>    5. 数据展示组件<br>    6. 业务组件<br>    7. 创新体验组件</p>
-<p>rax css style 支持列表<br>    <a href="https://rax.js.org/rax/guide/style-support" target="_blank" rel="noopener">https://rax.js.org/rax/guide/style-support</a></p>
+<p>rax css style 支持列表<br>    <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://rax.js.org/rax/guide/style-support" >https://rax.js.org/rax/guide/style-support</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>rax 的 className 只在 web 端生效，其他容器下是无法工作的。如果需要在特殊的容器下增强表现能力，需要对容器平台进行判断。</p>
 <p>感悟:<br>    这是一个框架，基于 react 修改出来的框架，学习和使用的难度应该都不是很高，问题在于，为什么要学习和使用这个东西。<br>    在学习和使用的过程中，我可以更加深入的想到一些什么？从中总结出来一些什么东西。<br>    1. 有哪些被被以组件的形式抽出来了？<br>    2. 他们是怎么被抽出来的？<br>    3. 抽出来时，为了让他们具有跨容器一致性，他们被赋予了那些基础属性和方法？</p>
-
-        
-    </section>
-</article>
-
-
-
-<div class="comments">
-    <div id="comments"></div>
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-    new Gitalk({
-        clientID: "c3af3992520bacebd1c9",
-        clientSecret: "68a9cac186eb0d7239f42203e5727428ef047a7e",
-        repo: "weisiwu.github.io",
-        owner: "weisiwu",
-        admin: ["weisiwu"],
-        id: "2019/08/20/rax-learning.html",
-        distractionFreeMode: true,
-        title: "rax 学习",
-        body: "https://weisiwu.github.io/2019/08/20/rax-learning.html",
-        labels: ["frontend"]
-    }).render('comments');
-    </script>
-</div>
-
-</div>
-        
-<footer class="footer post-layout">
-    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>；Copyright © <a href="https://weisiwu.github.io/" target="_blank">卫思伍</a></p>
-</footer>
-
-    </main>
-
-    <script src="/js/jquery.min.js"></script>
-    <script type="text/javascript">
-    $(function() {
-        var nodes = {
-            nav: $('#nav'),
-            aside: $('#aside'),
-            asideInner: $('#aside-inner'),
-            navInner: $('#nav-inner')
-        };
-
-        var doing = false;
-        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
-            if (nodes.aside.hasClass('mobile-open')) {
-                nodes.aside.removeClass('mobile-open');
-            } else {
-                nodes.aside.removeClass('mobile-close panel-show');
-            }
-            doing = false;
-        });
-        $('#open-panel, #aside-mask').on('click', function() {
-            if (doing) {
-                return;
-            }
-            
-            if (nodes.aside.hasClass('panel-show')) {
-                nodes.aside.addClass('mobile-close');
-            } else {
-                nodes.aside.addClass('mobile-open panel-show');
-            }
-        });
-        $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
-        });
-
-        if (window.innerWidth <= 960) {
-            setTimeout(function() {
-                nodes.navInner.slideUp();
-            }, 3000);
-        }
-    });
-    </script>
-    
-        <script type="text/javascript" src="/js/scrollspy.min.js"></script>
-        <script type="text/javascript">
-        $(document.body).scrollspy({target: '#aside-inner'});
-        </script>
-    
-
-</body>
-</html>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://weisiwu.github.io">weisiwu</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://weisiwu.github.io/2019/08/20/rax-learning.html">https://weisiwu.github.io/2019/08/20/rax-learning.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://weisiwu.github.io/tags/frontend/">frontend</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/08/20/fontFace.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">font-face 学习</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/08/20/fetch.html"><span class="paginator-prev__text">fetch 学习</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">Archives</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>weisiwu</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v6.1.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
