@@ -796,13 +796,13 @@ kbd {
   display: none;
   padding: 0 0.5rem;
   line-height: 50px;
-  color: #58bb1d;
+  color: #df6775;
   cursor: pointer;
 }
 .header-nav-menu-item__link,
 .header-nav-submenu-item__link {
   display: block;
-  color: #58bb1d;
+  color: #df6775;
 }
 .header-nav-menu-item__icon,
 .header-nav-submenu-item__icon,
@@ -912,12 +912,12 @@ kbd {
   font-size: 4rem;
   font-weight: 700;
   line-height: 1;
-  color: #58bb1d;
+  color: #df6775;
 }
 .header-banner-info__subtitle {
   font-size: 1.2rem;
   font-weight: 400;
-  color: #58bb1d;
+  color: #df6775;
 }
 .footer__icon {
   display: inline-block;
