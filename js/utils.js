@@ -208,7 +208,6 @@ Stun.utils = Stun.$u = {
     return init(function () {})
   },
   showThemeInConsole: function () {
-    return;
     var stunInfo = '主题不错？⭐star 支持一下 ->'
     var stunURL = 'https://github.com/liuyib/hexo-theme-stun'
     var stunNameStr =
