@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.jpg?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.jpg?v=2.8.0" type="image/png" sizes="32x32"><meta name="description" content="js中的引入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【技术】当NPM包没法require的时候，我应该...">
+<meta property="og:url" content="https://weisiwu.github.io/2023/08/10/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91JS%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5.html">
+<meta property="og:site_name" content="西瓜🍉的小站">
+<meta property="og:description" content="js中的引入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weisiwu.github.io/2023/08/images/template.jpeg">
+<meta property="article:published_time" content="2023-08-10T07:01:58.000Z">
+<meta property="article:modified_time" content="2023-09-25T09:40:10.328Z">
+<meta property="article:author" content="西瓜🍉">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://weisiwu.github.io/2023/08/images/template.jpeg"><title>【技术】当NPM包没法require的时候，我应该... | 西瓜🍉的小站</title><link ref="canonical" href="https://weisiwu.github.io/2023/08/10/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91JS%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.1.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags"><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">西瓜🍉的小站</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【技术】当NPM包没法require的时候，我应该...</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-08-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2023-09-25</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">11分</span></span></div></header><div class="post-body"><div class="gallery"><img src="/../images/template.jpeg"></div><!-- @format -->
+
+<!--more-->
+
+<p>当我用 <code>require</code>引入 <code>npm</code>包有双叒报错的时候，我应该先拿出这篇记录瞅瞅，看看是不是这个原因。</p>
+<p>在 js 发展过程中，国内常见的模块化方案有</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>规范名</th>
+<th>介绍</th>
+<th align="center">网址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AMD(Asynchronous Module Definition)</td>
+<td>用于客户端浏览器的 JavaScript，为异步模块加载提供了规范。 RequireJS 就是对该规范的一种实现，提供了模块加载器和构建工具。</td>
+<td align="center"><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://requirejs.org/docs/whyamd.html" >requirejs</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
+</tr>
+<tr>
+<td>Commonjs</td>
+<td>用于服务器端的 JavaScript，Node.js 就是基于 CommonJS 规范的模块系统。</td>
+<td align="center"><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://nodejs.org/api/modules.html" >Node v20.5.1 Documentation</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
+</tr>
+<tr>
+<td>UMD(Universal Module Definition)</td>
+<td>通用模块定义，支持在 AMD、CommonJS 和全局环境中使用。</td>
+<td align="center"><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/umdjs/umd" >umdjs</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
+</tr>
+<tr>
+<td>ESM(ECMA Script Module)</td>
+<td>在 ECMAScript 6（ES6）中，定义的原生模块化，可以在支持 ES6 及以上的浏览器中直接使用。</td>
+<td align="center"><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://262.ecma-international.org/9.0/#table-40" >ECMA262-Module</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
+</tr>
+<tr>
+<td>CMD(Common Module Definition)</td>
+<td>一个在国内比较流行的模块规范，是在 AMD 的基础上进行的一些修改和优化。比较古早的模块化框架，主要实现有 seajs，支付宝早期在用</td>
+<td align="center"><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://seajs.github.io/seajs/docs/" >seajs</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
+</tr>
+</tbody></table></div>
+<p>如果不关注老旧版本，那只有 <code>commonjs</code> 和 <code>esm</code> 值得继续关注。</p>
+<p><code>commonjs</code>简单规则如下(copy from chatgpt)</p>
+<blockquote>
+<p>CommonJS 规范是一种用于 JavaScript 模块化的规范，由 Node.js 社区提出，并在 Node.js 中被广泛采用。它定义了一套通用的模块化规则和接口，使得 JavaScript 程序可以方便地编写和维护。</p>
+<p>下面是 CommonJS 规范的主要特点和规则：</p>
+<p><strong>模块定义</strong><br>在 CommonJS 规范中，一个模块就是一个文件，每个文件都可以看做是一个独立的模块。模块内部的所有变量和函数都是私有的，不会影响全局作用域。</p>
+<p><strong>模块导出</strong><br>在 CommonJS 规范中，一个模块可以通过 module.exports 或 exports 导出变量或函数。module.exports 是一个特殊的对象，可以用来导出模块的内容。exports 是 module.exports 的一个引用，可以用来简化导出操作。</p>
+<p><strong>模块导入</strong><br>在 CommonJS 规范中，通过 require() 函数来导入模块。require() 函数接受一个模块路径，返回一个模块对象。模块路径可以是相对路径或绝对路径，也可以是模块名，如果是模块名，则会在 node_modules 目录中查找相应的模块。</p>
+<p><strong>模块缓存</strong><br>在 CommonJS 规范中，每个模块在第一次被导入时，会被加载并执行一次，然后将其结果保存在内存中，下次导入时直接从内存中读取，而不需要重新加载和执行。这样可以提高模块加载的效率，减少重复的工作。</p>
+<p><strong>模块循环引用</strong><br>在 CommonJS 规范中，模块可以相互引用，但是如果出现循环引用，会导致模块加载和执行失败。</p>
+<p>总之，CommonJS 规范为 JavaScript 模块化提供了一套简单而有效的规则和接口，使得程序员可以更&gt;加方便地编写和维护 JavaScript 应用程序。虽然 CommonJS 规范现在已经被 ES6 模块取代，但是&gt;在 Node.js 中仍然得到了广泛的应用。</p>
+</blockquote>
+<p><code>esm</code>简单规则如下(copy from chatgpt)</p>
+<blockquote>
+<p>ESM（ECMAScript Modules）规范是 ECMAScript 6（ES6）中新增的一种模块化规范，被设计为 &gt; JavaScript 中的原生模块系统。它提供了一种简单而有效的方式来组织和管理 JavaScript 应用程序。</p>
+<p>下面是 ESM 规范的主要特点和规则：</p>
+<p><strong>模块定义</strong><br>在 ESM 规范中，一个模块就是一个文件，每个文件都可以看做是一个独立的模块。模块内部的所有变量和函数都是私有的，不会影响全局作用域。</p>
+<p><strong>模块导出</strong><br>在 ESM 规范中，一个模块可以通过 export 关键字导出变量或函数。export 关键字可以在变量或函数前面使用，表示将其导出。也可以使用 export default 关键字来导出模块的默认值。</p>
+<p><strong>模块导入</strong><br>在 ESM 规范中，通过 import 关键字来导入模块。import 关键字接受一个模块路径，返回一个模块对象。模块路径可以是相对路径或绝对路径，也可以是模块名，如果是模块名，则会在 node_modules 目录中查找相应的模块。</p>
+<p><strong>模块缓存</strong><br>在 ESM 规范中，每个模块在第一次被导入时，会被加载并执行一次，然后将其结果保存在内存中，下次导入时直接从内存中读取，而不需要重新加载和执行。这样可以提高模块加载的效率，减少重复的工作。</p>
+<p><strong>模块循环引用</strong><br>在 ESM 规范中，模块可以相互引用，但是如果出现循环引用，会导致模块加载和执行失败。</p>
+<p><strong>动态导入</strong><br>在 ESM 规范中，可以使用 import() 函数来动态导入模块。import() 函数接受一个模块路径，返回一个 Promise 对象，在 Promise 对象被解析后，可以访问所导出的模块内容。</p>
+<p>总之，ESM 规范为 JavaScript 模块化提供了一套简单而有效的规则和接口，使得程序员可以更加方便地编写和维护 JavaScript 应用程序。与 CommonJS 规范相比，ESM 规范提供了更加灵活和强大的模块化功能，是未来 JavaScript 开发的趋势。</p>
+</blockquote>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 判断是否支持 ES6 模块</span></span><br><span class="line"><span class="comment"> * 在 support_esm 函数中</span></span><br><span class="line"><span class="comment"> * 1）首先检测 module 对象是否存在，并检测 module.exports 是否是一个对象。</span></span><br><span class="line"><span class="comment"> * 2）然后，使用操作符 in 检测 module.exports 对象中是否存在 __esModule 属性，或者使用 in 检测 module 对象中是否存在 createNamespace 属性。</span></span><br><span class="line"><span class="comment"> * 如果检测到上述属性之一，则说明当前环境支持 ES Modules，函数将返回 true；否则返回 false。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">support_esm</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="keyword">typeof</span> <span class="variable language_">module</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="variable language_">module</span>.<span class="property">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp;</span><br><span class="line">    (<span class="string">&#x27;__esModule&#x27;</span> <span class="keyword">in</span> <span class="variable language_">module</span>.<span class="property">exports</span> || <span class="string">&#x27;createNamespace&#x27;</span> <span class="keyword">in</span> <span class="variable language_">module</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 判断是否支持commonjs</span></span><br><span class="line"><span class="comment"> * 1）在 support_commonjs 函数中，首先检测 module 对象是否存在，并使用 hasOwnProperty 检测 module 对象中是否存在 exports 属性。</span></span><br><span class="line"><span class="comment"> * 2）然后，检测 exports 对象是否是一个对象。</span></span><br><span class="line"><span class="comment"> * 如果上述条件都满足，则说明当前环境支持 CommonJS Modules，函数将返回 true；否则返回 false。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">support_commonjs</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> <span class="variable language_">module</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="variable language_">module</span>.<span class="title function_">hasOwnProperty</span>(<span class="string">&#x27;exports&#x27;</span>) &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>虽然说只有两种需要注意，但是在今天仍然可能遇到一种情况。比如说，当了你准备引入 <code>node-fetch</code> 时，在文件中，写下如下内容</p>
+<figure class="highlight js"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">&#x27;node-fetch&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://www.baidu.com/&#x27;</span>);</span><br></pre></td></tr></table></div></figure>
+
+<p>点击运行，然后给你报错了<br><img src="/../images/js_import_esm.jpg" alt="运行报错"><br>原以为 npm 包一定支持通过 commonjs 方式引入，但 error 信息提示，仅支持通过 esm 形式引入。</p>
+<p>去官网一查，发现原因是<br><img src="/../images/js_import_esm_2.jpg" alt="v3后仅支持esm"><br>如果希望继续使用<code>require</code>的方式去引入，那么就需要降级到 <code>v2</code>。当然，官网也贴心的提示，<code>v2</code>仍然在持续维护中。</p>
+<p>很感人，不过我选择跟随时代的大船，用<code>esm</code>，官方对于这种要求也给出了解决方案:</p>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">fetch</span> = (<span class="params">...args</span>) =&gt; <span class="title function_">import</span>(<span class="string">&#x27;node-fetch&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">&#123; <span class="keyword">default</span>: fetch &#125;</span>) =&gt;</span> <span class="title function_">fetch</span>(...args));</span><br></pre></td></tr></table></div></figure>
+
+<p>简单解析一下这个方案</p>
+<ol>
+<li>创建一个函数，获取调用函数时候传入的所有参数: <code>...args</code></li>
+<li>在函数内部通过<code>dynamic import</code>这种异步引入(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/module#import" >es6 新增的语法</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)的方法，将 <code>node-fetch</code>包以异步方式引入</li>
+<li>在成功的<code>then</code>函数中，对接收到的对外暴露对象做解构，将 <code>default</code>改为 <code>fetch</code>，并将第一步传入的所有参数，原样传递给 <code>fetch</code>函数并调用。</li>
+</ol>
+<p>修改后运行，成功取到返回值<br><img src="/../images/js_import_esm_3.jpg" alt="成功取到返回值"></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://weisiwu.github.io">西瓜🍉</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://weisiwu.github.io/2023/08/10/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91JS%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5.html">https://weisiwu.github.io/2023/08/10/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91JS%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://weisiwu.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2023/09/25/%E3%80%90%E6%9D%82%E8%B0%88%E3%80%91%E5%8F%8D%E6%80%9D%E4%B9%8B%E4%BA%94.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【杂谈】反思之五</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2023/08/02/%E3%80%90%E6%9D%82%E8%B0%88%E3%80%91%E5%8F%8D%E6%80%9D%E4%B9%8B%E5%85%AD.html"><span class="paginator-prev__text">【杂谈】反思之六</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar/avatar_1.webp" alt="avatar"></div><p class="sidebar-ov-author__text">悟已往之不谏，知来者之可追</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/weisiwu/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/wei-si-wu" target="_blank" rel="noopener" data-popover="social.知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="https://juejin.cn/user/659362706096526" target="_blank" rel="noopener" data-popover="social.稀土掘金" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">掘金</span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/javascriptuser" target="_blank" rel="noopener" data-popover="social.Segmentfault" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">SF</span></a><a class="sidebar-ov-social-item" href="mailto:24368874745@qq.com" target="_blank" rel="noopener" data-popover="social.邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fa fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">8</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags"><div class="sidebar-ov-state-item__count">17</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2019~2022</span><span class="footer__icon"><i class="标签test"></i></span><span>西瓜🍉</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.8.0</span></div><div>且随疾风前行，身后亦需留心</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '709d1185f3e200e20db4',
+    clientSecret: 'ce422241f2e98463c823535a7e474e71ae2ab395',
+    repo: 'weisiwu.github.io',
+    owner: 'weisiwu',
+    admin: ['weisiwu'],
+    distractionFreeMode: 'true',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script></body></html>
