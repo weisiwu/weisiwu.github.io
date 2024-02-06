@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.jpg?v=2.8.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.jpg?v=2.8.0" type="image/png" sizes="32x32"><meta name="description" content="screenshot-to-code 是近期在github上很火的GPT衍生项目，其提供web界面去调用GPT-vision接口，进行图生代码的转换。在这基础上，还做了前端框架融合（生成的代码使用tailwindcss）、server服务集成（代码在backend文件夹中）。在上线两个月后，star数达到了3.1万，热度很高，AI的风潮确实十分的强劲。    使用效果可以看这个视频">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【技术】部署screenshot-to-code实践和感悟">
+<meta property="og:url" content="https://weisiwu.github.io/2024/02/01/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91%E9%83%A8%E7%BD%B2screenshot-to-code%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%84%9F%E6%82%9F.html">
+<meta property="og:site_name" content="西瓜🍉的小站">
+<meta property="og:description" content="screenshot-to-code 是近期在github上很火的GPT衍生项目，其提供web界面去调用GPT-vision接口，进行图生代码的转换。在这基础上，还做了前端框架融合（生成的代码使用tailwindcss）、server服务集成（代码在backend文件夹中）。在上线两个月后，star数达到了3.1万，热度很高，AI的风潮确实十分的强劲。    使用效果可以看这个视频">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://weisiwu.github.io/images/stc_3.png">
+<meta property="og:image" content="https://weisiwu.github.io/images/stc_1.png">
+<meta property="og:image" content="https://weisiwu.github.io/images/stc_2.png">
+<meta property="article:published_time" content="2024-02-01T08:48:40.000Z">
+<meta property="article:modified_time" content="2024-02-06T07:31:31.278Z">
+<meta property="article:author" content="西瓜🍉">
+<meta property="article:tag" content="AI 前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://weisiwu.github.io/images/stc_3.png"><title>【技术】部署screenshot-to-code实践和感悟 | 西瓜🍉的小站</title><link ref="canonical" href="https://weisiwu.github.io/2024/02/01/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91%E9%83%A8%E7%BD%B2screenshot-to-code%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%84%9F%E6%82%9F.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.8.0"><link rel="stylesheet" href="css/custom.css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.1.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags"><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">西瓜🍉的小站</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【技术】部署screenshot-to-code实践和感悟</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-02-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-02-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.8k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">10分</span></span></div></header><div class="post-body"><!-- @format -->
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/abi/screenshot-to-code" >screenshot-to-code</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 是近期在github上很火的GPT衍生项目，其提供web界面去调用GPT-vision接口，进行图生代码的转换。<br>在这基础上，还做了前端框架融合（生成的代码使用<code>tailwindcss</code>）、server服务集成（代码在<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/abi/screenshot-to-code/tree/main/backend" >backend文件夹</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>中）。<br>在上线两个月后，star数达到了3.1万，热度很高，AI的风潮确实十分的强劲。  </p>
+<p><img src="/../images/stc_3.png" alt="Alt text"></p>
+<p><strong>使用效果可以看这个视频</strong>  </p>
+<video id="video" controls="" preload="none" >
+  <source id="mp4" src="../images/stc_demo.mov" type="video/mp4">
+</videos>
+
+
+        <h1 id="安装"   >
+          <a href="#安装" class="heading-link"><i class="fas fa-link"></i></a><a href="#安装" class="headerlink" title="安装"></a>安装</h1>
+      <p>下面来简单介绍下，在安装部署screenshot-to-code过程中可能遇到的问题。将分成两个部分来入手介绍。</p>
+
+        <h2 id="基础依赖"   >
+          <a href="#基础依赖" class="heading-link"><i class="fas fa-link"></i></a><a href="#基础依赖" class="headerlink" title="基础依赖"></a>基础依赖</h2>
+      <p>screenshot-to-code项目中包含了前端和后端两部分，分别在frontend、backend文件夹中。需要分别将前后端项目启动，才算完整运行。<br>前端部分使用<code>yarn</code>作依赖管理，<code>node</code>作webui的server环境，后端部分则使用poetry作依赖管理，<code>python</code>作api的server环境。同时，为了避免多个环境依赖问题，项目使用docker多镜像联合运行，所以需要本地机器安装了<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.docker.com/" >docker</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>和<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/" >docker-compose</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。<br>最后，项目的核心能力是通过调用GPT-vision接口实现，所以还需要我们拥有<code>openai</code>的<code>OPENAI_API_KEY</code>，KEY需要我们在<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://chat.openai.com/" >openai官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>上开通GPT4的会员才能使用（GPT4需要付费使用，价格可以参考<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://openai.com/pricing" >Pricing</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>）。  </p>
+<p>简单对上面的概念做下介绍:   </p>
+<ul>
+<li><code>yarn</code>: <code>JavaScript</code>生态中的一种包管理工具</li>
+<li><code>poetry</code>: <code>Python</code>生态中的一种包管理工具</li>
+<li><code>docker</code>: 虚拟化工具，可分割出独立的环境模块，并在其中完成复杂依赖的安装，且不会影响宿主机器和宿主上的其他程序</li>
+<li><code>docker-compose</code>: 将由<code>docker</code>虚拟化出的多个环境模块联合到一起的工具，比如将前端的模块、后端的模块联合到一起，组成网站</li>
+</ul>
+
+        <h2 id="安装运行"   >
+          <a href="#安装运行" class="heading-link"><i class="fas fa-link"></i></a><a href="#安装运行" class="headerlink" title="安装运行"></a>安装运行</h2>
+      
+        <h3 id="通过dcokcer"   >
+          <a href="#通过dcokcer" class="heading-link"><i class="fas fa-link"></i></a><a href="#通过dcokcer" class="headerlink" title="通过dcokcer"></a>通过dcokcer</h3>
+      <ol>
+<li><strong>安装docker</strong></li>
+</ol>
+<p>按照官网给出的只是进行安装即可。<br><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/" >https://docs.docker.com/engine/install/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<ol start="2">
+<li><strong>安装docker-compose</strong></li>
+</ol>
+<p>同样，按照官网给出的文档进行安装即可。<br><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/" >https://docs.docker.com/compose/install/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>  </p>
+<ol start="3">
+<li><strong>下载项目，并开始构建</strong><br>  在前两者下载完毕后，将项目clone到本地，并在终端进入文件夹下，运行<code>docker-compose</code></li>
+</ol>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d --build</span><br></pre></td></tr></table></div></figure>
+<p>当然，如果你因为某些原因无法使用docker，那么也可以手动安装依赖，再运行，只是复杂度会上升很多。<br>下面给出一些手动安装时候，需要注意的坑。</p>
+<p>1、<code>python</code>需要安装3.12版本   </p>
+<p>如果本地已有<code>python</code>，那么可以先下载<code>conda</code>，然后再通过<code>conda</code>下载不同版本的<code>python</code>环境。<br>这一步很重要，不同<code>python</code>版本中的<code>poetry</code>最新版是不一样的，比如我最开始使用<code>python3.6</code>安装<code>poetry</code>的时候，只能安装1.17版本。<br>但是<code>poetry</code>在1.20版本，有不兼容性升级，而<code>screenshot-to-code</code>需要1.2以上，否则无法成功读取backend&#x2F;<code>pyproject.toml</code>的数据。 </p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda create -n py_312 python=3.12</span><br><span class="line">conda init</span><br><span class="line">conda activate py_312</span><br></pre></td></tr></table></div></figure>
+
+<p>2、<code>poetry</code>安装时，需要依赖<code>setuptools-rust</code>和<code>rust&gt;=1.48.0</code>  </p>
+<p><code>poetry</code>工具依赖<code>rust</code>版本，所以如果希望成功安装<code>poetry</code>，还需要先对本机的<code>rust</code>和<code>setuptools-rust</code>进行安装升级。在安装rust相关依赖的时候，可能会提示没有找到<code>openssl</code>，需要安装相关依赖。  </p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装poetry，如果遇到提示rust相关问题，执行下面的</span></span><br><span class="line">pip install poetry==1.4.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载安装rust</span></span><br><span class="line">curl --proto <span class="string">&#x27;=https&#x27;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh</span><br><span class="line"><span class="built_in">source</span> <span class="variable">$HOME</span>/.cargo/env</span><br><span class="line"><span class="comment"># 通过pip安装setuptools-rust，pip是python自带的包管理工具，类似于npm之于node</span></span><br><span class="line">pip install setuptools-rust</span><br><span class="line"><span class="comment"># dnf是linux federo版本下的包管理器</span></span><br><span class="line">dnf install openssl-devel</span><br><span class="line"><span class="comment"># 如果是mac，可以通过brew进行下载</span></span><br><span class="line">brew install openssl</span><br></pre></td></tr></table></div></figure>
+
+<p>3、在激活环境中，注意检测<code>poetry</code>版本  </p>
+<p>由于可能会安装另一个版本的<code>python</code>，所以一定要注意自己执行的<code>poetry</code>版本是否为新版本。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果poetry版本为1.4.1（或者&gt;=1.2），那么就没有问题</span></span><br><span class="line">poetry --version</span><br></pre></td></tr></table></div></figure>
+
+<p>4、如果你将服务部署在阿里云的esc上，前后端都成功启动后，通过ip+端口仍然无法访问服务，那你可能要遇到了<code>TCP6</code>问题。  </p>
+<p>由于服务启动后，监听是<code>ipv6</code>地址，但目前阿里云默认没有对外提供<code>ipv6</code>的访问，便会出现无法访问的情况。  </p>
+<p><img src="/../images/stc_1.png" alt="ipv6">  </p>
+<p>是否监听的是<code>ipv6</code>的地址，可以通过ping本机地址来查看，对于localhost(::1):就是监听<code>ipv6</code><br>或者通过查看网络命令  </p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5173是前端服务的端口</span></span><br><span class="line">netstat -an | grep 5173</span><br></pre></td></tr></table></div></figure>
+
+<p><img src="/../images/stc_2.png" alt="netstat">  </p>
+<p>如果第一列是<code>TCP6</code>，则表示服务监听的是<code>ipv6</code>。<br>解决这个问题，需要将监听的协议类型改成<code>TCP4</code>，并把监听的ip地址从<code>127.0.0.1</code>改为<code>0.0.0.0</code>。<br>这需要在启动前后端服务的时候分别指定host  </p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动前端</span></span><br><span class="line">yarn dev --host 0.0.0.0</span><br><span class="line"><span class="comment"># 启动后端</span></span><br><span class="line">poetry run uvicorn main:app --reload --port 7001 --host 0.0.0.0</span><br></pre></td></tr></table></div></figure>
+
+<p>5、在系统环境中设置<code>OPENAI_API_KEY</code>  </p>
+<p>这个需要在<code>openai</code>去获取，注意: key生成后，会下载到本地，<code>openai</code>网站并不会帮我们保存，需要注意保存。  </p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> backend</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;OPENAI_API_KEY=sk-your-key&quot;</span> &gt; .<span class="built_in">env</span></span><br></pre></td></tr></table></div></figure>
+
+<p>6、在云服务中，需要将前后端链接接口链接起来  </p>
+<p>如果你将服务部署在云服务上的虚拟机中，那么当前后端被分别启动后，需要通过设置<code>Vite</code>配置，让前端能够调用后端接口。  </p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi fonrtend/.env.local</span><br><span class="line"><span class="comment"># 添加如下两行</span></span><br><span class="line">VITE_WS_BACKEND_URL=ws://8.217.183.2:7001</span><br><span class="line">VITE_HTTP_BACKEND_URL=http://8.217.183.2:7001</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="思考"   >
+          <a href="#思考" class="heading-link"><i class="fas fa-link"></i></a><a href="#思考" class="headerlink" title="思考"></a>思考</h1>
+      <p>由于在之前已用过<code>GPT-vision</code>做图转代码，得到的效果并不如意，生成的代码还原度从感觉上，最多三四成，有时候甚至基本结构也无法相同，后续也难以通过<code>GPT</code>对之前的结果进行优化。  </p>
+<p>所以在跑本地demo前，我认为<code>screenshot-to-code</code>会对<code>prompt</code>做优化，同时可能采用类似于<code>Stable Diffusion</code>的局部重绘机制，提供持续优化方法，使得生成的页面会很贴近图片内容。  </p>
+<p>可惜的是，由于<code>GPT4</code>是收费的，所以并没有在线demo可供测试。而在本地安装使用后，发现其能力也只是对<code>GPT4</code>能力调用的web化封装。而随着<code>GPTstore</code>的上线，开放出来很多人的<code>prompt</code>，大家的需求也不会满足于单纯的web化封装。  </p>
+<p>而项目前端使用的是<code>nextjs</code>框架，和数据学习方向，大家常用的<code>gradio</code>并不相同，对于后续更多<code>LLM</code>类模型接入、各种插件接入，构建生态，并不有利。  </p>
+<p>因此，我对项目后续能否顺利发展存疑。前端程序员有自己的圈子，启动项目时也往往使用圈内成熟的框架。但是这个成熟的框架，却可能对未来产生限制，不禁让人思考，技术选型，到底需要兼顾什么？</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://weisiwu.github.io">西瓜🍉</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://weisiwu.github.io/2024/02/01/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91%E9%83%A8%E7%BD%B2screenshot-to-code%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%84%9F%E6%82%9F.html">https://weisiwu.github.io/2024/02/01/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91%E9%83%A8%E7%BD%B2screenshot-to-code%E5%AE%9E%E8%B7%B5%E5%92%8C%E6%84%9F%E6%82%9F.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://weisiwu.github.io/tags/AI-%E5%89%8D%E7%AB%AF/">AI 前端</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2024/01/11/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91sd-web-ui%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95.html"><span class="paginator-prev__text">sd-web-ui部署记录</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">
+          安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E4%BE%9D%E8%B5%96"><span class="toc-number">1.1.</span> <span class="toc-text">
+          基础依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C"><span class="toc-number">1.2.</span> <span class="toc-text">
+          安装运行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87dcokcer"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          通过dcokcer</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text">
+          思考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar/avatar_1.webp" alt="avatar"></div><p class="sidebar-ov-author__text">悟已往之不谏，知来者之可追</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/weisiwu/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/wei-si-wu" target="_blank" rel="noopener" data-popover="social.知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="https://juejin.cn/user/659362706096526" target="_blank" rel="noopener" data-popover="social.稀土掘金" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">掘金</span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/javascriptuser" target="_blank" rel="noopener" data-popover="social.Segmentfault" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">SF</span></a><a class="sidebar-ov-social-item" href="mailto:24368874745@qq.com" target="_blank" rel="noopener" data-popover="social.邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fa fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">27</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">8</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags"><div class="sidebar-ov-state-item__count">19</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2019~2022</span><span class="footer__icon"><i class="标签test"></i></span><span>西瓜🍉</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.8.0</span></div><div>且随疾风前行，身后亦需留心</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '709d1185f3e200e20db4',
+    clientSecret: 'ce422241f2e98463c823535a7e474e71ae2ab395',
+    repo: 'weisiwu.github.io',
+    owner: 'weisiwu',
+    admin: ['weisiwu'],
+    distractionFreeMode: 'true',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.8.0"></script><script src="/js/stun-boot.js?v=2.8.0"></script><script src="/js/scroll.js?v=2.8.0"></script><script src="/js/header.js?v=2.8.0"></script><script src="/js/sidebar.js?v=2.8.0"></script></body></html>
