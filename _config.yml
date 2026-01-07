@@ -142,7 +142,7 @@ theme_config:
       text: '且随疾风前行，身后亦需留心'
     icon:
       enable: true
-      name: 标签test
+      name: 标签
     copyright:
       enable: true
       since: 2019

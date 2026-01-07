@@ -1,6 +1,7 @@
 ---
 title: Namesilo（占位）
 date: 2026-01-07 22:52:00
+permalink: /learning/goals/namesilo/
 tags:
   - Domain
 categories:
