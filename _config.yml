@@ -132,6 +132,7 @@ theme_config:
   menu:
     categories: /categories/
     tags: /tags
+    learning: /learning/
   creative_commons:
     enable: true
     sidebar:
