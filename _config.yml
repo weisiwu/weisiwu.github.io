@@ -1,0 +1,193 @@
+# @format
+
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: 西瓜🍉的小站
+show_title: false
+subtitle:
+description:
+keywords:
+author: 西瓜🍉
+language: zh-CN
+timezone:
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://weisiwu.github.io
+root: /
+permalink: :year/:month/:day/:title.html
+permalink_defaults:
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag
+default_category: web
+category_map:
+tag_map:
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+## stun theme: https://github.com/liuyib/hexo-theme-stun
+## stun 自己扩展: https://github.com/weisiwu/hexo-theme-stun
+theme: stun
+## 自定义theme配置: https://hexo.io/docs/configuration.html
+theme_config:
+  enable: true
+  favicon:
+    small: /images/icons/favicon-16x16.jpg
+    medium: /images/icons/favicon-32x32.jpg
+  busuanzi:
+    enable: false
+  header:
+    enable: true
+    height: 35%
+    bg_image:
+      enable: true
+      url: /images/header_bk/bk3.jpg
+    banner:
+      # Effective for all pages.
+      enable: true
+      # You can override it by `header_title` in Front-Matter of .md
+      title: 西瓜🍉的小站
+      subtitle: ''
+  post_meta:
+    word_count:
+      icon: far fa-file-word
+      enable: true
+    reading_time:
+      enable: true
+      icon: far fa-clock
+      # Set reading speed to count reading time.
+      speed:
+        # Reading speed of zh-CN.
+        zh: 200
+        # Reading speed of en-US.
+        en: 80
+  author:
+    avatar:
+      animation:
+      url: /images/avatar/avatar_1.webp
+    motto: 悟已往之不谏，知来者之可追
+  social_setting:
+    enable: true
+    icon_only: true
+  social:
+    github: https://github.com/weisiwu/ || fab fa-github
+    知乎: https://www.zhihu.com/people/wei-si-wu || fab fa-zhihu
+    稀土掘金: https://juejin.cn/user/659362706096526 || origin:掘金
+    Segmentfault: https://segmentfault.com/u/javascriptuser || origin:SF
+    邮箱: mailto:24368874745@qq.com || fa fa-envelope
+    google:
+    twitter:
+    youtube:
+  menu:
+    categories: /categories/
+    tags: /tags
+  creative_commons:
+    enable: true
+    sidebar:
+  footer:
+    custom:
+      enable: true
+      text: '且随疾风前行，身后亦需留心'
+    icon:
+      enable: true
+      name: 标签test
+    copyright:
+      enable: true
+      since: 2019
+      end: 2022
+      text: 西瓜🍉
+      author: 西瓜🍉
+      beian:
+        icp:
+    powered:
+      enable: true
+      version:
+  # Gittalk
+  # See: https://github.com/gitalk/gitalk/
+  # 使用的 newUsedMyBlogComment
+  # https://github.com/settings/applications/2018689
+  # https://cjjkkk.github.io/gitalk/
+  gitalk:
+    enable: true
+    # Github username.
+    owner: weisiwu
+    # Github repository.
+    repo: weisiwu.github.io
+    # Github Application Client ID.
+    client_id: 709d1185f3e200e20db4
+    # client_id: Iv1.30a181049e1aba60
+    # Github Application Client Secret.
+    # client_secret: 3e59b07f07c4bc06c9930bcc8476d946621f5a26
+    client_secret: ce422241f2e98463c823535a7e474e71ae2ab395
+    # GitHub repo owner and collaborators, only these guys can initialize github issues.
+    admin: weisiwu
+    # Facebook-like distraction free mode.
+    distraction_free_mode: true
+    # Gitalk's display language depends on user's browser or system environment.
+    # If you want everyone visiting your site to see a uniform language, you can set a force language value.
+    # Optional values: en | zh-CN | es-ES | fr | ru | zh-TW
+    language: zh-CN
+  cdn:
+    # See: https://github.com/gitalk/gitalk/, https://github.com/emn178/js-md5/
+    # Example:
+    # gitalk_js: //cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js
+    # gitalk_css: //cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.css
+    # md5: //cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js
+    gitalk_js: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js
+    gitalk_css: https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type:
