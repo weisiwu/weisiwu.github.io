@@ -1,5 +1,5 @@
 {
-  "name": "Blog",
+  "name": "weisiwu.github.io",
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -34,5 +34,5 @@
     "hexo-server": "^0.3.3",
     "hexo-wordcount": "^6.0.1"
   },
-  "repository": "git@github.com:weisiwu/Blog.git"
+  "repository": "git@github.com:weisiwu/weisiwu.github.io.git"
 }

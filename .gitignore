@@ -1,5 +1,4 @@
 .DS_Store
-package-lock.json
 
 # Webstorm
 .idea
@@ -45,7 +44,5 @@ node_modules
 # ignore hexo publish output
 /public
 db.json
-
-package-lock.json
 
 test.md
