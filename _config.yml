@@ -160,7 +160,7 @@ theme_config:
   # https://github.com/settings/applications/2018689
   # https://cjjkkk.github.io/gitalk/
   gitalk:
-    enable: true
+    enable: false
     # Github username.
     owner: weisiwu
     # Github repository.
